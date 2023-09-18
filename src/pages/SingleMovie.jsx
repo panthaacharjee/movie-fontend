@@ -50,8 +50,8 @@ const SingleMovie = () => {
       {loading ? (
         <p>Please wait</p>
       ) : (
-        <div className="flex my-5 px-8">
-          <div className="w-2/12 ">
+        <div className="md:flex my-5 px-8">
+          <div className="md:w-2/12 ">
             <img
               src={`https://image.tmdb.org/t/p/w500${
                 movie && movie.poster_path
@@ -60,7 +60,7 @@ const SingleMovie = () => {
               style={{ boxShadow: "0px 0px 4px 0px #000" }}
             />
           </div>
-          <div className="w-10/12 pl-3">
+          <div className="md:w-10/12 pl-3 mt-5 md:mt-0">
             <p className="text-xl font-medium">
               {movie && movie.title} ({movie && movie.vote_average})
             </p>

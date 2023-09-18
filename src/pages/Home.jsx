@@ -34,7 +34,7 @@ const Home = () => {
             <input
               type="text"
               placeholder="Search"
-              className="pl-12 rounded-sm py-1 w-96"
+              className="pl-12 rounded-sm py-1 md:w-96"
               onChange={(e) => setInput(e.target.value)}
             />
           </form>
