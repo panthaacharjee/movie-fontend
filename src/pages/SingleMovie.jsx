@@ -40,7 +40,7 @@ const SingleMovie = () => {
   return (
     <div>
       <div
-        className="bg-cyan-500 px-8 py-2 flex items-center justify-between"
+        className="bg-blue px-8 py-2 flex items-center justify-between"
         style={{ boxShadow: "0px 0px 5px 0px #000" }}
       >
         <div className="relative flex items-center ">
@@ -71,9 +71,8 @@ const SingleMovie = () => {
             <p className="text-medium flex">
               <p className="mr-1"> {movie && date.getFullYear()} </p> |
               <p className="mr-1 ml-1">
-                {" "}
                 {movie && toHoursAndMinutes(movie.runtime)}{" "}
-              </p>{" "}
+              </p>
               |
               {crew &&
                 crew.map((val, ind) => {

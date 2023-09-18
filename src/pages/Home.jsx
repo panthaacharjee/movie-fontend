@@ -23,7 +23,7 @@ const Home = () => {
   return (
     <div>
       <div
-        className="bg-cyan-500 px-8 py-2 flex items-center justify-between"
+        className="bg-blue px-8 py-2 flex items-center justify-between"
         style={{ boxShadow: "0px 0px 5px 0px #000" }}
       >
         <div className="relative flex items-center ">
