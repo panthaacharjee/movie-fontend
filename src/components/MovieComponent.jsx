@@ -5,7 +5,7 @@ const MovieComponent = ({ movie }) => {
   return (
     <Link
       to={`/movie/${movie.id}`}
-      className="w-6/12 sm:w-4/12 md:w-2/12 min-h-[50%] flex justify-center my-2"
+      className="w-12/12 sm:w-4/12 md:w-3/12 md:w-2/12 min-h-[50%] flex justify-center my-2"
     >
       <div
         className="bg-white w-11/12  rounded-md cursor-pointer"
