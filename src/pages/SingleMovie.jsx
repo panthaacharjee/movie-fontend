@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getMovie } from "../redux/actions/movieAction";
-import { IoMdSearch } from "react-icons/io";
 import { AiFillHome } from "react-icons/ai";
 import axios from "axios";
 
@@ -10,11 +9,14 @@ const SingleMovie = () => {
   const id = useParams();
   const dispatch = useDispatch();
   const { movie, loading } = useSelector((state) => state.movie);
+
+  //Movie Year
   const date = new Date(movie && movie.release_date);
 
   const [cast, setCast] = useState();
   const [crew, setCrew] = useState([]);
 
+  //Hour Function
   function toHoursAndMinutes(totalMinutes) {
     const minutes = totalMinutes % 60;
     const hours = Math.floor(totalMinutes / 60);
