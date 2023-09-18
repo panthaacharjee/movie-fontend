@@ -1,16 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getMovie } from "../redux/actions/movieAction";
 import { IoMdSearch } from "react-icons/io";
 import { AiFillHome } from "react-icons/ai";
+import axios from "axios";
 
 const SingleMovie = () => {
   const id = useParams();
   const dispatch = useDispatch();
   const { movie, loading } = useSelector((state) => state.movie);
-  console.log(movie);
-  useEffect(() => {
+  const date = new Date(movie && movie.release_date);
+
+  const [cast, setCast] = useState();
+  const [crew, setCrew] = useState([]);
+
+  function toHoursAndMinutes(totalMinutes) {
+    const minutes = totalMinutes % 60;
+    const hours = Math.floor(totalMinutes / 60);
+
+    return `${padTo2Digits(hours)}hr : ${padTo2Digits(minutes)}min`;
+  }
+  function padTo2Digits(num) {
+    return num.toString().padStart(2, "0");
+  }
+
+  // console.log(typeof crew);
+  useEffect(async () => {
+    const { data } = await axios.get(
+      `https://api.themoviedb.org/3/movie/${id.id}/credits?api_key=a8e576755b7df52f6d199ce7d1d6adb6`
+    );
+    setCast(data.cast);
+    setCrew(data.crew);
     dispatch(getMovie(id.id));
   }, [id]);
   return (
@@ -32,34 +53,50 @@ const SingleMovie = () => {
         <div className="flex my-5 px-8">
           <div className="w-2/12 ">
             <img
-              src="https://i.ytimg.com/vi/v6f66NY6MpU/maxresdefault.jpg"
-              className="rounded-lg h-52 "
+              src={`https://image.tmdb.org/t/p/w500${
+                movie && movie.poster_path
+              }`}
+              className="rounded-lg h-52 w-full "
               style={{ boxShadow: "0px 0px 4px 0px #000" }}
             />
           </div>
           <div className="w-10/12 pl-3">
             <p className="text-xl font-medium">
-              {movie && movie.name} ({movie && movie.rating})
+              {movie && movie.title} ({movie && movie.vote_average})
             </p>
 
-            <p className="text-medium">
-              {movie && movie.year} | {movie && movie.length} |{" "}
-              {movie && movie.director}
+            <p className="text-medium flex">
+              <p className="mr-1"> {movie && date.getFullYear()} </p> |
+              <p className="mr-1 ml-1">
+                {" "}
+                {movie && toHoursAndMinutes(movie.runtime)}{" "}
+              </p>{" "}
+              |
+              {crew &&
+                crew.map((val, ind) => {
+                  if (val.job === "Director") {
+                    return (
+                      <p key={ind} className="ml-1 list-none ">
+                        {val.name},
+                      </p>
+                    );
+                  }
+                })}
             </p>
-            <div className="flex">
+            <div className="flex flex-wrap">
               <p className="mr-2 font-medium">Cast: </p>
-              {movie &&
-                movie.cast.map((val, ind) => {
+              {cast &&
+                cast.map((val, ind) => {
                   return (
-                    <p key={ind} className="mr-2">
+                    <li key={ind} className="mr-2 list-none ">
                       {val.name},
-                    </p>
+                    </li>
                   );
                 })}
             </div>
-            <p className="mt-2">
-              <span className="font-bold">Description:</span>
-              {movie && movie.description}
+            <p className="">
+              <span className="font-bold">Description: </span>
+              {movie && movie.overview}
             </p>
           </div>
         </div>

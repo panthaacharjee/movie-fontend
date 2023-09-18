@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const MovieComponent = ({ movie }) => {
   return (
     <Link
-      to={`/movie/${movie._id}`}
+      to={`/movie/${movie.id}`}
       className="w-2/12 h-fit flex justify-center my-2"
     >
       <div
@@ -12,15 +12,15 @@ const MovieComponent = ({ movie }) => {
         style={{ boxShadow: "0px 0px 5px 0px #000" }}
       >
         <img
-          src="https://i.ytimg.com/vi/v6f66NY6MpU/maxresdefault.jpg"
+          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           className="rounded-t-lg h-36 w-full"
         />
         <div className="p-2">
           <div className="flex justify-between items-center">
-            <h3 className="text-md font-bold">{movie.name}</h3>
-            <p>{movie.rating}</p>
+            <h3 className="text-sm font-bold">{movie.title}</h3>
+            <p>{movie.vote_average}</p>
           </div>
-          <p className="leading-none mt-1">{movie.description.slice(0, 50)}</p>
+          <p className="leading-none mt-1">{movie.overview.slice(0, 50)}</p>
         </div>
       </div>
     </Link>
