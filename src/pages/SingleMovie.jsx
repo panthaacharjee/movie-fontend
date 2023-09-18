@@ -26,13 +26,16 @@ const SingleMovie = () => {
   }
 
   // console.log(typeof crew);
-  useEffect(async () => {
-    const { data } = await axios.get(
-      `https://api.themoviedb.org/3/movie/${id.id}/credits?api_key=a8e576755b7df52f6d199ce7d1d6adb6`
-    );
-    setCast(data.cast);
-    setCrew(data.crew);
-    dispatch(getMovie(id.id));
+  useEffect(() => {
+    const fetch = async () => {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/movie/${id.id}/credits?api_key=a8e576755b7df52f6d199ce7d1d6adb6`
+      );
+      setCast(data.cast);
+      setCrew(data.crew);
+      dispatch(getMovie(id.id));
+    };
+    fetch();
   }, [id]);
   return (
     <div>
